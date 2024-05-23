@@ -6,7 +6,7 @@ Instruction
 ===
 1. 라이브러리 설치
 ```   
-pip install pynput pyobjc
+pip install pynput pyobjc keyboard
 ```
 2. main.py 실행
 ```
