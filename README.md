@@ -21,3 +21,8 @@ sudo python3 main.py
 문의사항
 ===
 이슈에 남겨주세요.
+
+
+제작자 지원
+===
+https://toss.me/saramjh
