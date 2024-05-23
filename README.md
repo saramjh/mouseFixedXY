@@ -14,8 +14,8 @@ pip install pynput pyobjc keyboard
 ```
 sudo python3 main.py
 ```
-4. 수평제한 키 "r"
-5. 수직제한 키 "t"
+4. 수평으로만 움직임 제한 단축키 "r"
+5. 수직으로만 움직임 제한 단축키 "t"
 6. 종료는 터미널에서 "ctrl + c"
 
 문의사항
