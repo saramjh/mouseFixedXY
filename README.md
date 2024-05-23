@@ -6,7 +6,7 @@
 사용법
 ===
 1. 파이썬 3버전 이상 [파이썬 설치 링크](https://www.python.org/downloads/)
-2. 라이브러리 설치(필수) 터미널 혹은 파워쉘에서 설치하세요.
+2. 라이브러리 설치(필수) 터미널에서 ㅅ설치하세요.
 ```   
 pip install pynput pyobjc keyboard
 ```
