@@ -1,6 +1,5 @@
-# vertical_mouse.py
 import time
-import Quartz.CoreGraphics as CG
+import pyautogui
 import signal
 import sys
 
@@ -15,18 +14,21 @@ def signal_handler(sig, frame):
 
 
 signal.signal(signal.SIGINT, signal_handler)
+signal.signal(signal.SIGTERM, signal_handler)
 
 
 def get_mouse_position():
-    event = CG.CGEventCreate(None)
-    location = CG.CGEventGetLocation(event)
-    return (location.x, location.y)
+    return pyautogui.position()
 
 
 def set_mouse_position(x, y):
-    event = CG.CGEventCreateMouseEvent(
-        None, CG.kCGEventMouseMoved, (x, y), CG.kCGMouseButtonLeft)
-    CG.CGEventPost(CG.kCGHIDEventTap, event)
+    pyautogui.moveTo(x, y, duration=0.0)
+
+
+def toggle_vertical():
+    global running
+    running = not running
+    print("Vertical restriction toggled:", running)
 
 
 def main():
@@ -36,7 +38,7 @@ def main():
         x, y = get_mouse_position()
         if x != initial_x:
             set_mouse_position(initial_x, y)
-        time.sleep(0.01)
+        time.sleep(0.001)
 
 
 if __name__ == "__main__":

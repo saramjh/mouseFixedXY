@@ -1,36 +1,48 @@
 from pynput import keyboard
 import subprocess
+import psutil
+import signal
+import sys
 
+vertical_process = None
+horizontal_process = None
 vertical_active = False
 horizontal_active = False
 
 
 def toggle_vertical():
-    global vertical_active, horizontal_active
+    global vertical_process, vertical_active, horizontal_process, horizontal_active
     if horizontal_active:
-        horizontal_active = False
-        subprocess.Popen(["pkill", "-f", "horizontal_mouse.py"])
-    vertical_active = not vertical_active
+        toggle_horizontal()
     if vertical_active:
-        subprocess.Popen(["python", "vertical_mouse.py"])
+        vertical_process.terminate()
+        vertical_process.wait()
+        vertical_process = None
+        vertical_active = False
+        print("Vertical restriction deactivated")
     else:
-        subprocess.Popen(["pkill", "-f", "vertical_mouse.py"])
+        vertical_process = subprocess.Popen(["python", "vertical_mouse.py"])
+        vertical_active = True
+        print("Vertical restriction activated")
 
 
 def toggle_horizontal():
-    global horizontal_active, vertical_active
+    global vertical_process, vertical_active, horizontal_process, horizontal_active
     if vertical_active:
-        vertical_active = False
-        subprocess.Popen(["pkill", "-f", "vertical_mouse.py"])
-    horizontal_active = not horizontal_active
+        toggle_vertical()
     if horizontal_active:
-        subprocess.Popen(["python", "horizontal_mouse.py"])
+        horizontal_process.terminate()
+        horizontal_process.wait()
+        horizontal_process = None
+        horizontal_active = False
+        print("Horizontal restriction deactivated")
     else:
-        subprocess.Popen(["pkill", "-f", "horizontal_mouse.py"])
+        horizontal_process = subprocess.Popen(["python", "horizontal_mouse.py"])
+        horizontal_active = True
+        print("Horizontal restriction activated")
 
 
 def on_press(key):
-    # 키 수정하는 부분
     try:
         if key.char == 'r':
             toggle_horizontal()
@@ -40,7 +52,19 @@ def on_press(key):
         pass
 
 
+def signal_handler(sig, frame):
+    global vertical_process, horizontal_process
+    if vertical_process:
+        vertical_process.terminate()
+        vertical_process.wait()
+    if horizontal_process:
+        horizontal_process.terminate()
+        horizontal_process.wait()
+    sys.exit(0)
+
+
 def main():
+    signal.signal(signal.SIGINT, signal_handler)
     with keyboard.Listener(on_press=on_press) as listener:
         listener.join()
 
