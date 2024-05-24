@@ -6,13 +6,13 @@
 사용법
 ===
 1. 파이썬 3버전 이상 [파이썬 설치 링크](https://www.python.org/downloads/)
-2. 라이브러리 설치(필수) 터미널에서 설치하세요.
+2. 라이브러리 설치(필수) 터미널에서 파이썬 프로젝트 경로에서 아래 명령어를 입력하여 설치하세요.
 ```   
-pip install pynput pyobjc keyboard
+pip install -r requirements.txt
 ```
-3. main.py 실행 (키 입력 감지를 위해 관리자 권한(sudo)로 실행 필수)
+3. main.py 실행 (맥의 제한을 풀기 위해 "시스템 설정" - "개인정보 보호 및 보안" - "손쉬운 사용"에서 명령어를 입력하는 터미널의 권한을 추가해주세요.)
 ```
-sudo python3 main.py
+python3 main.py
 ```
 4. 터미널 창을 켜둔채로 사용하면 됩니다.
 5. 수평으로만 움직임 제한 단축키 "r"
@@ -24,7 +24,7 @@ sudo python3 main.py
 이슈에 남겨주세요.
 
 
-제작자 지원 (Toss)
+제작자 후원 (Toss)
 ===
 [컵라면 하나](https://toss.me/saramjh/1400)   
 [편의점 도시락 하나](https://toss.me/saramjh/3400)   
